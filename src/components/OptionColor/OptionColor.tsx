@@ -1,17 +1,12 @@
 import clsx from 'clsx'
 import styles from './OptionColor.module.scss'
-
-interface Props {
-  colors: string[]
-  setCurrenColor: (color: string) => string
-  currentColor: string
-}
+import { OptionColorProps } from '../../interfaces'
 
 const OptionColor = ({
   colors,
-  setCurrenColor,
+  setCurrentColor,
   currentColor,
-}: Props): JSX.Element => {
+}: OptionColorProps): JSX.Element => {
   const prepareColorClassName = (color: string): string => {
     return styles[
       'color' + color[0].toUpperCase() + color.substr(1).toLowerCase()
@@ -25,7 +20,7 @@ const OptionColor = ({
         {colors.map((item: any) => (
           <li key={item}>
             <button
-              onClick={() => setCurrenColor(item)}
+              onClick={() => setCurrentColor(item)}
               type="button"
               className={clsx(
                 prepareColorClassName(item),

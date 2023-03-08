@@ -2,19 +2,7 @@ import styles from './Product.module.scss'
 import { useState } from 'react'
 import ProductImage from '../ProductImage/ProductImage'
 import ProductForm from '../ProductForm/ProductForm'
-
-type Size = {
-  name: string
-  additionalPrice: number
-}
-
-interface Product {
-  name: string
-  title: string
-  basePrice: number
-  colors: string[]
-  sizes: Size[]
-}
+import { ProductProps } from '../../interfaces'
 
 const Product = ({
   title,
@@ -22,9 +10,9 @@ const Product = ({
   colors,
   sizes,
   name,
-}: Product): JSX.Element => {
-  const [currentColor, setCurrenColor] = useState<string>(colors[0])
-  const [currentSize, setCurrenSize] = useState<string>(sizes[0]['name'])
+}: ProductProps): JSX.Element => {
+  const [currentColor, setCurrentColor] = useState<string>(colors[0])
+  const [currentSize, setCurrentSize] = useState<string>(sizes[0]['name'])
 
   const getPrice = (): number => {
     const element: any = sizes.find((element) => element.name === currentSize)
@@ -32,7 +20,7 @@ const Product = ({
     return basePrice + element.additionalPrice
   }
 
-  const addButton = (e: Event): void => {
+  const addButton = (e: any): void => {
     e.preventDefault()
     console.log(`Name: ${title}`)
     console.log(`Price: ${getPrice()}`)
@@ -51,10 +39,10 @@ const Product = ({
         <ProductForm
           addButton={addButton}
           colors={colors}
-          setCurrenColor={setCurrenColor}
+          setCurrentColor={setCurrentColor}
           currentColor={currentColor}
           sizes={sizes}
-          setCurrenSize={setCurrenSize}
+          setCurrentSize={setCurrentSize}
           currentSize={currentSize}
         />
       </div>
