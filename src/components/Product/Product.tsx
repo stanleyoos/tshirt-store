@@ -1,8 +1,16 @@
 import styles from './Product.module.scss'
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import ProductImage from '../ProductImage/ProductImage'
 import ProductForm from '../ProductForm/ProductForm'
-import { ProductProps } from '../../interfaces'
+import { Size } from '../../interfaces'
+
+interface ProductProps {
+  name: string
+  title: string
+  basePrice: number
+  colors: string[]
+  sizes: Size[]
+}
 
 const Product = ({
   title,
@@ -14,16 +22,16 @@ const Product = ({
   const [currentColor, setCurrentColor] = useState<string>(colors[0])
   const [currentSize, setCurrentSize] = useState<string>(sizes[0]['name'])
 
-  const getPrice = (): number => {
+  const getPrice = useMemo((): number => {
     const element: any = sizes.find((element) => element.name === currentSize)
 
     return basePrice + element.additionalPrice
-  }
+  }, [currentSize])
 
   const addButton = (e: any): void => {
     e.preventDefault()
     console.log(`Name: ${title}`)
-    console.log(`Price: ${getPrice()}`)
+    console.log(`Price: ${getPrice}`)
     console.log(`Size: ${currentSize}`)
     console.log(`Color: ${currentColor}`)
   }
@@ -34,7 +42,7 @@ const Product = ({
       <div>
         <header>
           <h2 className={styles.name}>{title}</h2>
-          <span className={styles.price}>Price: {getPrice()}$</span>
+          <span className={styles.price}>Price: {getPrice}$</span>
         </header>
         <ProductForm
           addButton={addButton}

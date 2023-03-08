@@ -1,6 +1,11 @@
 import clsx from 'clsx'
 import styles from './OptionColor.module.scss'
-import { OptionColorProps } from '../../interfaces'
+
+interface OptionColorProps {
+  colors: string[]
+  setCurrentColor: (color: string) => void
+  currentColor: string
+}
 
 const OptionColor = ({
   colors,

@@ -1,7 +1,12 @@
 import clsx from 'clsx'
 import styles from './OptionSize.module.scss'
 import { Size } from '../../interfaces'
-import { OptionSizeProps } from '../../interfaces'
+
+interface OptionSizeProps {
+  sizes: Size[]
+  setCurrentSize: (size: string) => void
+  currentSize: string
+}
 
 const OptionSize = ({
   sizes,
